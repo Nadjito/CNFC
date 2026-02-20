@@ -12,13 +12,18 @@ public class PenguinController : MonoBehaviour
     public float maxVerticalSpeed = 8f;
     public float maxUp = 3.5f;
     public float maxDown = -3.5f;
-    public float instantDownVelocity = 6f; // velocity applied immediately when pressing while below restY
+    public float instantDownVelocity = 6f;
+	public float minDiveForJump = 0.25f;
 
     private Rigidbody rb;
     private bool isPressing;
     private bool prevPress;
     private bool hadPressed;
     private float restY;
+	private bool canJump;
+	private bool inWater;
+	private bool wasInWater;
+	public float waterSurfaceTolerance = 0.05f;
 
     void Start()
     {
@@ -44,6 +49,7 @@ public class PenguinController : MonoBehaviour
 
     void OnPressStart()
     {
+		if (!inWater) return;
         hadPressed = true;
         if (rb.position.y < restY - 0.01f)
         {
@@ -64,6 +70,25 @@ public class PenguinController : MonoBehaviour
         Vector3 vel = rb.linearVelocity;
         vel.x = forwardSpeed;
         rb.linearVelocity = vel;
+		float prof = restY - rb.position.y;
+		inWater = prof > waterSurfaceTolerance;
+
+		if (inWater && !wasInWater)
+		{
+    		canJump = false;  
+    		hadPressed = false; 
+		}
+
+		if (!inWater && wasInWater)
+		{
+    		canJump = false;
+    		hadPressed = false;
+		}
+
+		wasInWater = inWater;
+
+		if (inWater && prof > minDiveForJump)
+    	canJump = true;
 
         if (isPressing)
         {
@@ -71,7 +96,7 @@ public class PenguinController : MonoBehaviour
         }
         else
         {
-            if (hadPressed)
+            if (hadPressed && canJump)
             {
                 float maxDepth = restY - maxDown;
                 float depth = Mathf.Clamp(restY - rb.position.y, 0f, maxDepth);
@@ -79,6 +104,7 @@ public class PenguinController : MonoBehaviour
                 float impulse = upForce * Mathf.Lerp(0.6f, 1.6f, depthRatio);
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
                 hadPressed = false;
+				canJump = false;
             }
             float displacement = restY - rb.position.y;
             float buoyancy = displacement * buoyancyStrength;
