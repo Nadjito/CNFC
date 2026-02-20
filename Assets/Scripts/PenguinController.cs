@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 public class PenguinController : MonoBehaviour
 {
     public float forwardSpeed = 3f;
+    public float maxForwardSpeed = 8f;
+    public float speedBoostPerfect = 2f;
+    public float speedBoostDive = 1.5f;
+    public float speedDecay = 0.5f;
     public float downForce = 10f;
     public float upForce = 20f;
     public float buoyancyStrength = 8f;
@@ -25,17 +29,20 @@ public class PenguinController : MonoBehaviour
     private bool wasInWater;
     private float pressStartTime;
     private float restY;
-    
+    private float currentForwardSpeed;
+    private float maxDepthReached;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         restY = transform.position.y;
-        rb.linearVelocity = new Vector3(forwardSpeed, 0f, 0f);
+        currentForwardSpeed = forwardSpeed;
+        rb.linearVelocity = new Vector3(currentForwardSpeed, 0f, 0f);
     }
 
     void Update()
     {
+        Debug.Log($"ForwardSpeed: {currentForwardSpeed:F2}");
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);
@@ -59,7 +66,10 @@ public class PenguinController : MonoBehaviour
     {
         float prof = restY - rb.position.y;
         bool inWater = prof >= -waterSurfaceTolerance;
-        
+
+        if (currentForwardSpeed > forwardSpeed)
+            currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
+
         if (inWater && !wasInWater)
         {
             bool perfectTiming = isPressing || (hadPressed && Time.time - pressStartTime <= perfectJumpWindow);
@@ -67,12 +77,16 @@ public class PenguinController : MonoBehaviour
             {
                 float impulse = upForce * perfectJumpMultiplier;
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
+                currentForwardSpeed = currentForwardSpeed + speedBoostPerfect;
                 hadPressed = false;
                 canJump = false;
             }
         }
 
         wasInWater = inWater;
+
+        if (inWater)
+            maxDepthReached = Mathf.Max(maxDepthReached, prof);
 
         if (inWater && prof > minDiveForJump)
             canJump = true;
@@ -88,12 +102,14 @@ public class PenguinController : MonoBehaviour
             if (hadPressed && canJump)
             {
                 float maxDepth = restY - maxDown;
-                float depth = Mathf.Clamp(prof, 0f, maxDepth);
+                float depth = Mathf.Clamp(maxDepthReached, 0f, maxDepth);
                 float depthRatio = maxDepth > 0f ? depth / maxDepth : 0f;
                 float impulse = upForce * Mathf.Lerp(0.6f, 1.6f, depthRatio);
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
+                currentForwardSpeed = currentForwardSpeed + speedBoostPerfect;
                 hadPressed = false;
                 canJump = false;
+                maxDepthReached = 0f;
             }
 
             if (inWater)
@@ -109,7 +125,7 @@ public class PenguinController : MonoBehaviour
         }
 
         Vector3 vel = rb.linearVelocity;
-        vel.x = forwardSpeed;
+        vel.x = currentForwardSpeed;
         vel.y = Mathf.Clamp(vel.y, -maxVerticalSpeed, maxVerticalSpeed);
         rb.linearVelocity = vel;
 
