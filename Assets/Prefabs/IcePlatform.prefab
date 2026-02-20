@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3130181803812751696}
   - component: {fileID: 8508478890620687599}
   m_Layer: 0
-  m_Name: Gelo
+  m_Name: IcePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
