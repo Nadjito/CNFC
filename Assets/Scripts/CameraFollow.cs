@@ -5,11 +5,12 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     public float smooth = 4f;
     public Vector3 offset = new Vector3(4, 0, -10);
-    public float cameraRotation;
+    public Vector2 cameraRotation;
 
     void Start()
     {
-        transform.rotation = Quaternion.AngleAxis(cameraRotation, Vector3.right);
+        transform.localEulerAngles=new Vector3(cameraRotation.x, cameraRotation.y, 0);
+
     }
 
     void FixedUpdate()
