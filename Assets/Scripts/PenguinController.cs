@@ -28,7 +28,7 @@ public class PenguinController : MonoBehaviour
     private bool wasInWater;
     private float pressStartTime;
     private float restY;
-    private float currentForwardSpeed;
+    public float currentForwardSpeed;
     private float maxDepthReached;
 
     void Start()
