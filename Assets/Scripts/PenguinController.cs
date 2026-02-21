@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 public class PenguinController : MonoBehaviour
 {
     public float forwardSpeed = 3f;
-    public float maxForwardSpeed = 8f;
     public float speedBoostPerfect = 2f;
-    public float speedBoostDive = 1.5f;
+    public float speedBoostDiveMax = 3f;
     public float speedDecay = 0.5f;
     public float downForce = 10f;
     public float upForce = 20f;
@@ -42,7 +41,7 @@ public class PenguinController : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log($"ForwardSpeed: {currentForwardSpeed:F2}");
+        Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);
@@ -66,10 +65,10 @@ public class PenguinController : MonoBehaviour
     {
         float prof = restY - rb.position.y;
         bool inWater = prof >= -waterSurfaceTolerance;
-
+        
         if (currentForwardSpeed > forwardSpeed)
             currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
-
+        
         if (inWater && !wasInWater)
         {
             bool perfectTiming = isPressing || (hadPressed && Time.time - pressStartTime <= perfectJumpWindow);
@@ -77,10 +76,10 @@ public class PenguinController : MonoBehaviour
             {
                 float impulse = upForce * perfectJumpMultiplier;
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
-                currentForwardSpeed = currentForwardSpeed + speedBoostPerfect;
+                currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostPerfect, forwardSpeed * 3f);
                 hadPressed = false;
                 canJump = false;
-                Debug.Log("Perfect Jump!");
+                maxDepthReached = 0f;
             }
         }
 
@@ -94,20 +93,31 @@ public class PenguinController : MonoBehaviour
 
         if (isPressing && inWater)
         {
-            hadPressed = false;
-            canJump = false;
             rb.AddForce(Vector3.down * downForce, ForceMode.Acceleration);
+            
+            float maxDepth = restY - maxDown;
+            float depthRatio = maxDepth > 0f ? Mathf.Clamp01(prof / maxDepth) : 0f;
+            float targetSpeed = Mathf.Lerp(forwardSpeed, forwardSpeed + speedBoostDiveMax, depthRatio);
+    
+            if (targetSpeed > currentForwardSpeed)
+                currentForwardSpeed = targetSpeed;
+            
+            if (rb.linearVelocity.y > 0f)
+            {
+                hadPressed = false;
+                canJump = false;
+            }
         }
         else
         {
-            if (hadPressed && canJump)
+            if (hadPressed && canJump && inWater)
             {
                 float maxDepth = restY - maxDown;
                 float depth = Mathf.Clamp(maxDepthReached, 0f, maxDepth);
                 float depthRatio = maxDepth > 0f ? depth / maxDepth : 0f;
                 float impulse = upForce * Mathf.Lerp(0.6f, 1.6f, depthRatio);
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
-                currentForwardSpeed = currentForwardSpeed + speedBoostPerfect;
+                currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostDiveMax * depthRatio, forwardSpeed * 3f);
                 hadPressed = false;
                 canJump = false;
                 maxDepthReached = 0f;
