@@ -44,7 +44,7 @@ public class PenguinController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
+        //Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);

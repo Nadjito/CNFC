@@ -24,14 +24,16 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private int obstaclePoolDefaultCapacity;
     [SerializeField] private int obstaclePoolMaxSize;
     [SerializeField] private float obstacleLifetime; // Time after which the obstacle will be returned to the pool
-    private Queue<GameObject> obstaclePool = new Queue<GameObject>();
-    [SerializeField] private Transform ObstacleHolder;
+    private List<GameObject> obstaclePool = new List<GameObject>();
+    private int uniqueObstacleIndex;
 
 
     void Start()
     {
         spawnPositionY = Water.position.y + spawnYoffset;
+        Debug.Log("Obstacle Pool initialized with " + ObstaclesList.Count + " obstacles.");
         InitializeObstaclePool();
+        
     }
 
 
@@ -66,41 +68,55 @@ public class ObstacleSpawner : MonoBehaviour
 
     public GameObject GetObstacleFromPool()
     {
-        if (obstaclePool.Count > 0)
+        if (obstaclePool.Count <= 0)
         {
-            GameObject obstacle = obstaclePool.Dequeue();
-            obstacle.SetActive(true);
-            return obstacle;
-        }
-        else
-        {
-            if(obstaclePool.Count + 1 <= obstaclePoolMaxSize)
+            if(obstaclePool.Count + 1 >= obstaclePoolMaxSize)
             {
-                GameObject obstacle = Instantiate(ObstaclesList[Random.Range(0, ObstaclesList.Count)], Vector3.zero, Quaternion.identity);
-                obstacle.transform.SetParent(ObstacleHolder);
-                obstacle.SetActive(false);
-                obstaclePool.Enqueue(obstacle);
-                return obstacle;
+                Debug.LogWarning("Obstacle Pool has reached its maximum size. Consider increasing the max size or reducing the spawn rate.");
+                return null;
             }
-            return null;
+            else
+            {
+                AddNewObstacleToPool();
+            }   
         }
+
+        int randomIndex = Random.Range(0, ObstaclesList.Count);
+        GameObject obstacle = obstaclePool[randomIndex];
+        obstaclePool.RemoveAt(randomIndex);
+
+        obstacle.SetActive(true);
+        return obstacle;
     }
 
     public void ReturnObstacleToPool(GameObject obstacle)
     {
             obstacle.SetActive(false);
-            obstaclePool.Enqueue(obstacle);
+            obstaclePool.Add(obstacle);
     }
 
     private void InitializeObstaclePool()
     {
+        int uniqueObstacleIndex = ObstaclesList.Count-1;
         for (int i = 0; i < obstaclePoolDefaultCapacity; i++)
         {
-             GameObject obstacle = Instantiate(ObstaclesList[Random.Range(0, ObstaclesList.Count)], Vector3.zero, Quaternion.identity);
-            obstacle.transform.SetParent(ObstacleHolder);
-            obstacle.SetActive(false);
-             obstaclePool.Enqueue(obstacle);
+            Debug.Log("Capacity is : " + obstaclePoolDefaultCapacity);
+            Debug.Log("Adding new obstacle to pool. Current pool size: " + ObstaclesList.Count);
+            AddNewObstacleToPool();
         }
+    }
+
+    private void AddNewObstacleToPool()
+    {
+        if (uniqueObstacleIndex <= 0)
+            uniqueObstacleIndex = ObstaclesList.Count-1;
+        else { uniqueObstacleIndex--; }
+
+        GameObject obstacle = Instantiate(ObstaclesList[uniqueObstacleIndex], Vector3.zero, Quaternion.identity);
+        obstacle.transform.SetParent(transform);
+        obstacle.SetActive(false);
+        obstaclePool.Add(obstacle);
+
     }
 
     IEnumerator DeactivateObstacle(GameObject obstacle)

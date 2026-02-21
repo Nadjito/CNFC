@@ -9,9 +9,9 @@ public class ScoreController : MonoBehaviour
     [Header("Score Increase Settings")]
     [Space(5)]
     [Tooltip("Default score increase")]
-    [SerializeField] private float scoreIncreaseValue= 1f;
+    [SerializeField] private float scoreIncreaseValue;
     [Tooltip("How often score increases")]
-    [SerializeField] private float scoreIncreaseRate = 0.2f;
+    [SerializeField] private float scoreIncreaseRate;
     [Space(5)]
     [SerializeField] private PenguinController player;
     private float scoreMultiplier=1f;
@@ -23,6 +23,9 @@ public class ScoreController : MonoBehaviour
     private float defaultForwardSpeed;
     [SerializeField] private float speedMultiplier;
 
+    [Tooltip("DONT CHANGE VALUE")]
+    [SerializeField]private float scoreRate;
+
     //Test Purposes
     private float timeTest = 0.0f;
     [SerializeField] private float timeTestLimit;
@@ -33,13 +36,14 @@ public class ScoreController : MonoBehaviour
     {
         score = 1;
         defaultForwardSpeed = player.forwardSpeed;
+        scoreRate = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if (time < scoreIncreaseRate)
+        if (time > scoreIncreaseRate)
         {
             /*
             scoreMultiplier = player.currentForwardSpeed / defaultForwardSpeed;
@@ -50,8 +54,9 @@ public class ScoreController : MonoBehaviour
             score += score * scoreMultiplier;
             time = 0.0f;*/
 
-            float scoreRate = scoreIncreaseValue + Mathf.Pow(player.currentForwardSpeed, 2f) * speedMultiplier;
+            scoreRate = scoreIncreaseValue + Mathf.Pow(player.currentForwardSpeed, speedMultiplier);
             score += scoreRate;
+            time = 0.0f;
 
 
         }
