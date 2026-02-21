@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2957107645282280885}
   - component: {fileID: 36690311367731847}
   - component: {fileID: 2929194509024348046}
+  - component: {fileID: 9048270919530531268}
   - component: {fileID: 9094716936222535693}
   m_Layer: 0
   m_Name: Pedra
@@ -91,6 +92,19 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9048270919530531268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706451151734848328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6adb774f348c444b7807e3e7ad67d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleUniqueness
+  obstacleType: 2
 --- !u!65 &9094716936222535693
 BoxCollider:
   m_ObjectHideFlags: 0

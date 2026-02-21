@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 585522992987746458}
   - component: {fileID: 3458592060729806296}
   - component: {fileID: 3130181803812751696}
+  - component: {fileID: 4927549428896731084}
   - component: {fileID: 8508478890620687599}
   m_Layer: 0
   m_Name: IcePlatform
@@ -91,6 +92,19 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4927549428896731084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859631316960477184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6adb774f348c444b7807e3e7ad67d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleUniqueness
+  obstacleType: 1
 --- !u!65 &8508478890620687599
 BoxCollider:
   m_ObjectHideFlags: 0

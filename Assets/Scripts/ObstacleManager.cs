@@ -7,41 +7,41 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    /*
-
-    [SerializeField] public Vector3 spawnPosition;
-
-    [SerializeField] public GameObject snowPlatformPrefab;
-    [SerializeField] public GameObject icePlatformPrefab;
 
 
     public abstract class Obstacle
     {
         public abstract string Name { get; }
-        public abstract Vector3 Position { get; }    }
+        public abstract void affectPlayer();
+    }  
 
     public class SnowPlatform : Obstacle
     {
-        private GameObject icePlatformGameObject=> icePlatformPrefab;
-
         public override string Name => "SnowPlatform";
-        public override Vector3 Position => spawnPosition;
 
-        private GameObject Instantiate(GameObject icePlatformGameObject, Vector3 position)
+        public override void affectPlayer()
         {
-            throw new NotImplementedException();
+            Debug.Log("SnowPlatform is affecting!");
         }
     }
 
     public class IcePlatform : Obstacle
     {
         public override string Name => "IcePlatform";
-        public override Vector3 Position => obstaclePosition;
 
-
-        public override void Spawn()
+        public override void affectPlayer()
         {
-            Debug.Log("IcePlatform is spawning!");
+            Debug.Log("IcePlatform is affecting!");
+        }
+    }
+
+    public class Pedra : Obstacle
+    {
+        public override string Name => "Pedra";
+
+        public override void affectPlayer()
+        {
+            Debug.Log("Pedra is affecting!");
         }
     }
 
@@ -86,9 +86,12 @@ public class ObstacleManager : MonoBehaviour
             return obstacleByName.Keys;
         }
     }
-    public class NewObject
+
+    /*public GetRandomObstacle()
     {
-        string ObjectName;
-        GameObject ObjectPrefab;
+        var obstacleNames = ObstacleFactory.GetObstacleNames().ToList();
+        int randomIndex = UnityEngine.Random.Range(0, obstacleNames.Count);
+        string randomObstacleName = obstacleNames[randomIndex];
+        return ObstacleFactory.GetObstacle(randomObstacleName);
     }*/
 }
