@@ -7,7 +7,7 @@ public class PenguinController : MonoBehaviour
     public float forwardSpeed = 3f;
     public float speedBoostPerfect = 2f;
     public float speedBoostDiveMax = 3f;
-    public float speedDecay = 0.5f;
+    public float speedDecay = 0.1f;
     public float downForce = 10f;
     public float upForce = 20f;
     public float buoyancyStrength = 8f;
@@ -41,7 +41,7 @@ public class PenguinController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
+       // Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);
