@@ -7,21 +7,31 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-
+    //[SerializeField] private float snowDecelerate;
 
     public abstract class Obstacle
     {
         public abstract string Name { get; }
-        public abstract void affectPlayer();
-    }  
+        public abstract void affectPlayer(GameObject obstacle);
+
+        public Transform playerTrans = GameObject.FindWithTag("Player").transform;
+        public PenguinController playerController = GameObject.FindWithTag("Player").GetComponent<PenguinController>();
+        public abstract float speedModifier { get; }
+    }
 
     public class SnowPlatform : Obstacle
     {
         public override string Name => "SnowPlatform";
+        public override float speedModifier=> -30f;
 
-        public override void affectPlayer()
+        public override void affectPlayer(GameObject obstacle)
         {
-            Debug.Log("SnowPlatform is affecting!");
+            if(playerTrans.position.y > obstacle.transform.position.y)
+            {
+                float newSpeed = playerController.GetComponent<PenguinController>().GetSpeed() + speedModifier;
+                playerController.GetComponent<PenguinController>().SetSpeed(newSpeed);
+            }
+           
         }
     }
 
@@ -29,24 +39,37 @@ public class ObstacleManager : MonoBehaviour
     {
         public override string Name => "IcePlatform";
 
-        public override void affectPlayer()
+        public override float speedModifier => +5f;
+        public override void affectPlayer(GameObject obstacle)
         {
-            Debug.Log("IcePlatform is affecting!");
+            int speedModifier = (int)this.speedModifier;
+            if (playerTrans.position.y < obstacle.transform.position.y)
+            {
+                speedModifier = speedModifier * -1;
+            }
+
+            float newSpeed = playerController.GetComponent<PenguinController>().GetSpeed() + speedModifier;
+            playerController.GetComponent<PenguinController>().SetSpeed(newSpeed);
+
         }
     }
 
-    public class Pedra : Obstacle
+    /*public class Pedra : Obstacle
     {
         public override string Name => "Pedra";
 
-        public override void affectPlayer()
+        public override float speedModifier => 0f;
+
+
+        public override void affectPlayer(GameObject obstacle)
         {
             Debug.Log("Pedra is affecting!");
         }
-    }
+    }*/
 
     public static class ObstacleFactory
     {
+
         private static Dictionary<string, Type> obstacleByName;
         private static bool isInitialized => obstacleByName != null;
 
@@ -87,11 +110,6 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
-    /*public GetRandomObstacle()
-    {
-        var obstacleNames = ObstacleFactory.GetObstacleNames().ToList();
-        int randomIndex = UnityEngine.Random.Range(0, obstacleNames.Count);
-        string randomObstacleName = obstacleNames[randomIndex];
-        return ObstacleFactory.GetObstacle(randomObstacleName);
-    }*/
+
 }
+

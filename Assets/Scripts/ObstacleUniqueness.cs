@@ -7,35 +7,53 @@ public class ObstacleUniqueness : MonoBehaviour
     //[SerializeField] private GameObject ObstacleManager;
 
     private ObstacleManager _ObstacleManager;
+    private Obstacle collisionObstacle;
+    private Collider collider;
 
     public enum ObstacleType
     {
         SnowPlatform,
         IcePlatform,
-        Pedra
+        //Pedra
     }
 
     [SerializeField] private ObstacleType obstacleType;
 
-    /*void OnAwake()
+    void OnEnable()
     {
+        if(collider != null)
+        {
+            collider.enabled = true;
+
+        }
+    }
+
+    void Start()
+    {
+        collider = gameObject.GetComponent<Collider>();
+        _ObstacleManager = Object.FindAnyObjectByType<ObstacleManager>();
 
         switch (obstacleType)
         {
             case ObstacleType.SnowPlatform:
-                _ObstacleManager = new SnowPlatform();
+                collisionObstacle = new SnowPlatform();
                 break;
             case ObstacleType.IcePlatform:
-                _ObstacleManager.ObstacleFactory.CreateObstacle("IcePlatform").affectPlayer();
+                collisionObstacle = new IcePlatform();
                 break;
-            case ObstacleType.Pedra:
-                _ObstacleManager.ObstacleFactory.CreateObstacle("Pedra").affectPlayer();
+            default:
                 break;
         }
-    }*/
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        collider.enabled = false;
+
+        if (collisionObstacle != null)
+        {
+            collisionObstacle.affectPlayer(gameObject);
+        }
 
     }
 }

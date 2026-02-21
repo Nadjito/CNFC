@@ -165,4 +165,14 @@ public class PenguinController : MonoBehaviour
             rb.linearVelocity = vel;
         }
     }
+
+    public void SetSpeed(float value)
+    {
+        currentForwardSpeed = value;
+    }
+
+    public float GetSpeed()
+    {
+        return currentForwardSpeed;
+    }
 }
