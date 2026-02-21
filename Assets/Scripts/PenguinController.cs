@@ -7,7 +7,7 @@ public class PenguinController : MonoBehaviour
     public float forwardSpeed = 3f;
     public float speedBoostPerfect = 2f;
     public float speedBoostDiveMax = 3f;
-    public float speedDecay = 0.1f;
+    public float speedDecay = 0.5f;
     public float downForce = 10f;
     public float upForce = 20f;
     public float buoyancyStrength = 8f;
@@ -27,9 +27,11 @@ public class PenguinController : MonoBehaviour
     private bool canJump;
     private bool wasInWater;
     private float pressStartTime;
+    private float lastPressTime = -999f;
     private float restY;
     public float currentForwardSpeed;
     private float maxDepthReached;
+    private bool perfectPress;
 
     void Start()
     {
@@ -37,16 +39,26 @@ public class PenguinController : MonoBehaviour
         restY = transform.position.y;
         currentForwardSpeed = forwardSpeed;
         rb.linearVelocity = new Vector3(currentForwardSpeed, 0f, 0f);
+        pressStartTime = -999f;
     }
 
     void Update()
     {
-       // Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
+        Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);
 
-        if (currentPress && !prevPress)
+        bool justPressed = Mouse.current != null
+            ? Mouse.current.leftButton.wasPressedThisFrame
+            : Input.GetMouseButtonDown(0);
+        
+        if (justPressed)
+            lastPressTime = Time.time;
+        
+        perfectPress = (Time.time - lastPressTime) <= 0.4f;
+
+        if (justPressed && !prevPress)
         {
             float prof = restY - transform.position.y;
             bool inWater = prof >= -waterSurfaceTolerance;
@@ -71,9 +83,10 @@ public class PenguinController : MonoBehaviour
         
         if (inWater && !wasInWater)
         {
-            bool perfectTiming = isPressing || (hadPressed && Time.time - pressStartTime <= perfectJumpWindow);
+            bool perfectTiming = perfectPress || (hadPressed && pressStartTime > 0f && Time.time - pressStartTime <= perfectJumpWindow);
             if (perfectTiming)
             {
+                Debug.Log("Perfect Jump!");
                 float impulse = upForce * perfectJumpMultiplier;
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
                 currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostPerfect, forwardSpeed * 3f);
