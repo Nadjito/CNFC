@@ -80,6 +80,9 @@ public class PenguinController : MonoBehaviour
         if (currentForwardSpeed > forwardSpeed)
             currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
         
+        if (currentForwardSpeed < forwardSpeed)
+            currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
+        
         if (inWater && !wasInWater)
         {
             bool perfectTiming = perfectPress || (hadPressed && pressStartTime > 0f && Time.time - pressStartTime <= perfectJumpWindow);
