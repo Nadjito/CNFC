@@ -42,7 +42,7 @@ public class PenguinController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"ForwardSpeed: {currentForwardSpeed:F2}");
+        //Debug.Log($"ForwardSpeed: {currentForwardSpeed:F2}");
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);
@@ -80,6 +80,7 @@ public class PenguinController : MonoBehaviour
                 currentForwardSpeed = currentForwardSpeed + speedBoostPerfect;
                 hadPressed = false;
                 canJump = false;
+                Debug.Log("Perfect Jump!");
             }
         }
 

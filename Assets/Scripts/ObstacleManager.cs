@@ -7,40 +7,29 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
+    /*
 
+    [SerializeField] public Vector3 spawnPosition;
 
-    [SerializeField] private Vector3 spawnPosition;
-    private static Vector3 obstaclePosition;
+    [SerializeField] public GameObject snowPlatformPrefab;
+    [SerializeField] public GameObject icePlatformPrefab;
 
-    void Start()
-    {
-        if (spawnPosition == null)
-        {
-            Debug.LogError("Obstacle spawn position is not set!");
-        }
-        else
-        {
-            obstaclePosition = spawnPosition;
-        }   
-    }
 
     public abstract class Obstacle
     {
         public abstract string Name { get; }
-        public abstract Vector3 Position { get; }
-
-        public abstract void Spawn();
-    }
+        public abstract Vector3 Position { get; }    }
 
     public class SnowPlatform : Obstacle
     {
+        private GameObject icePlatformGameObject=> icePlatformPrefab;
+
         public override string Name => "SnowPlatform";
-        public override Vector3 Position => obstaclePosition;
+        public override Vector3 Position => spawnPosition;
 
-
-        public override void Spawn()
+        private GameObject Instantiate(GameObject icePlatformGameObject, Vector3 position)
         {
-            Debug.Log("SnowPlatform is spawning!");
+            throw new NotImplementedException();
         }
     }
 
@@ -97,5 +86,9 @@ public class ObstacleManager : MonoBehaviour
             return obstacleByName.Keys;
         }
     }
-
+    public class NewObject
+    {
+        string ObjectName;
+        GameObject ObjectPrefab;
+    }*/
 }
