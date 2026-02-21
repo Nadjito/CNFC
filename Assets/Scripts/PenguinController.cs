@@ -44,7 +44,6 @@ public class PenguinController : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("Speed: " + currentForwardSpeed.ToString("F2") + " | Depth: " + (restY - transform.position.y).ToString("F2") + " | Pressing: " + isPressing);    
         bool currentPress = Mouse.current != null
             ? Mouse.current.leftButton.isPressed
             : Input.GetMouseButton(0);
@@ -86,7 +85,6 @@ public class PenguinController : MonoBehaviour
             bool perfectTiming = perfectPress || (hadPressed && pressStartTime > 0f && Time.time - pressStartTime <= perfectJumpWindow);
             if (perfectTiming)
             {
-                Debug.Log("Perfect Jump!");
                 float impulse = upForce * perfectJumpMultiplier;
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
                 currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostPerfect, forwardSpeed * 3f);
