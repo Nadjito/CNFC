@@ -474,7 +474,6 @@ MonoBehaviour:
   obstaclePoolDefaultCapacity: 10
   obstaclePoolMaxSize: 30
   obstacleLifetime: 10
-  ObstacleHolder: {fileID: 655763753}
 --- !u!1 &655763752
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,6 +921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1188538467}
   - component: {fileID: 1188538469}
+  - component: {fileID: 1188538470}
   m_Layer: 0
   m_Name: PenguinSombra
   m_TagString: Untagged
@@ -938,8 +938,8 @@ Transform:
   m_GameObject: {fileID: 1188538466}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.05, y: -0.22275001, z: 0.24537}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.05, y: 0.072, z: 0.24537}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1209682288}
@@ -993,7 +993,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 333fcd319ca8ab74dbd0aecf1c515bff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7fa83868614b5de4c9311a89990c54a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1003,6 +1003,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1188538470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188538466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8327a059dcecc9846ac47022c6da3024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BillboardSprite
 --- !u!1 &1209682287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1114,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.38
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.75}
 --- !u!114 &1301496851 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3174360645831057024, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
@@ -1463,6 +1475,7 @@ MonoBehaviour:
   player: {fileID: 1301496851}
   ScoreValueTMP: {fileID: 658116083}
   speedMultiplier: 2
+  scoreRate: 0
   timeTestLimit: 10
 --- !u!4 &1812133092
 Transform:
@@ -1591,6 +1604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2125293016}
   - component: {fileID: 2125293017}
+  - component: {fileID: 2125293018}
   m_Layer: 0
   m_Name: Penguin 1
   m_TagString: Untagged
@@ -1607,8 +1621,8 @@ Transform:
   m_GameObject: {fileID: 2125293015}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.295, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1569343738}
@@ -1662,7 +1676,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 752722863ea93b3439be3fafb3454158, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1939de926faa2340bba6e2d0584514f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1672,6 +1686,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2125293018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125293015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8327a059dcecc9846ac47022c6da3024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BillboardSprite
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
