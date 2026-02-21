@@ -1400,6 +1400,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 4525674538005728040, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e61ea268297724499ac67d913433d38, type: 2}
     - target: {fileID: 4811567896980491861, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -1605,6 +1609,7 @@ GameObject:
   - component: {fileID: 2125293016}
   - component: {fileID: 2125293017}
   - component: {fileID: 2125293018}
+  - component: {fileID: 2125293019}
   m_Layer: 0
   m_Name: Penguin 1
   m_TagString: Untagged
@@ -1676,7 +1681,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a1939de926faa2340bba6e2d0584514f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3e2c1c23213dda34a8b36687ec5a977e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1698,6 +1703,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8327a059dcecc9846ac47022c6da3024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BillboardSprite
+--- !u!95 &2125293019
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125293015}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c911fb6522689684eb95288fe09ec2a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
