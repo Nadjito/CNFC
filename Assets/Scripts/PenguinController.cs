@@ -32,6 +32,7 @@ public class PenguinController : MonoBehaviour
     public float currentForwardSpeed;
     private float maxDepthReached;
     private bool perfectPress;
+    public Animator animator;
 
     void Start()
     {
@@ -40,6 +41,9 @@ public class PenguinController : MonoBehaviour
         currentForwardSpeed = forwardSpeed;
         rb.linearVelocity = new Vector3(currentForwardSpeed, 0f, 0f);
         pressStartTime = -999f;
+        animator = GetComponent<Animator>();
+        if (animator == null)
+            Debug.LogWarning("Animator component not found on PenguinController object.");
     }
 
     void Update()
@@ -51,10 +55,10 @@ public class PenguinController : MonoBehaviour
         bool justPressed = Mouse.current != null
             ? Mouse.current.leftButton.wasPressedThisFrame
             : Input.GetMouseButtonDown(0);
-        
+
         if (justPressed)
             lastPressTime = Time.time;
-        
+
         perfectPress = (Time.time - lastPressTime) <= 0.4f;
 
         if (justPressed && !prevPress)
@@ -76,13 +80,13 @@ public class PenguinController : MonoBehaviour
     {
         float prof = restY - rb.position.y;
         bool inWater = prof >= -waterSurfaceTolerance;
-        
+
         if (currentForwardSpeed > forwardSpeed)
             currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
-        
+
         if (currentForwardSpeed < forwardSpeed)
             currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
-        
+
         if (inWater && !wasInWater)
         {
             bool perfectTiming = perfectPress || (hadPressed && pressStartTime > 0f && Time.time - pressStartTime <= perfectJumpWindow);
@@ -91,6 +95,8 @@ public class PenguinController : MonoBehaviour
                 float impulse = upForce * perfectJumpMultiplier;
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
                 currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostPerfect, forwardSpeed * 3f);
+                animator.SetTrigger("Parry");
+                Debug.Log("Parry");
                 hadPressed = false;
                 canJump = false;
                 maxDepthReached = 0f;
@@ -101,6 +107,7 @@ public class PenguinController : MonoBehaviour
 
         if (inWater)
             maxDepthReached = Mathf.Max(maxDepthReached, prof);
+        //animator.SetBool("JumpingIdle", false);
 
         if (inWater && prof > minDiveForJump)
             canJump = true;
@@ -108,14 +115,14 @@ public class PenguinController : MonoBehaviour
         if (isPressing && inWater)
         {
             rb.AddForce(Vector3.down * downForce, ForceMode.Acceleration);
-            
+
             float maxDepth = restY - maxDown;
             float depthRatio = maxDepth > 0f ? Mathf.Clamp01(prof / maxDepth) : 0f;
             float targetSpeed = Mathf.Lerp(forwardSpeed, forwardSpeed + speedBoostDiveMax, depthRatio);
-    
+
             if (targetSpeed > currentForwardSpeed)
                 currentForwardSpeed = targetSpeed;
-            
+
             if (rb.linearVelocity.y > 0f)
             {
                 hadPressed = false;
@@ -142,10 +149,13 @@ public class PenguinController : MonoBehaviour
                 float buoyancy = prof * buoyancyStrength;
                 float damping = rb.linearVelocity.y > 0f ? -rb.linearVelocity.y * buoyancyDamping : 0f;
                 rb.AddForce(Vector3.up * (buoyancy + damping), ForceMode.Acceleration);
+                //Animator swim
             }
             else
             {
                 rb.AddForce(Vector3.down * 5f, ForceMode.Acceleration);
+                //Animator fall
+                animator.SetBool("JumpingIdle", true);
             }
         }
 
@@ -174,5 +184,9 @@ public class PenguinController : MonoBehaviour
     public float GetSpeed()
     {
         return currentForwardSpeed;
+    }
+    public void SetCurrentForwardSpeed(float newSpeed)
+    {
+        currentForwardSpeed = newSpeed;
     }
 }
