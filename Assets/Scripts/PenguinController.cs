@@ -76,7 +76,7 @@ public class PenguinController : MonoBehaviour
             }
         }
 
-        isPressing = currentPress;
+            isPressing = currentPress;
         prevPress = currentPress;
     }
 
@@ -164,17 +164,27 @@ public class PenguinController : MonoBehaviour
                 float buoyancy = prof * buoyancyStrength;
                 float damping = rb.linearVelocity.y > 0f ? -rb.linearVelocity.y * buoyancyDamping : 0f;
                 rb.AddForce(Vector3.up * (buoyancy + damping), ForceMode.Acceleration);
-                //Animator swim
+
             }
             else
             {
                 rb.AddForce(Vector3.down * 5f, ForceMode.Acceleration);
                 //Animator fall
                 animator.SetBool("JumpingIdle", true);
+                animator.SetBool("UnderWater", false);
             }
         }
 
-        Vector3 vel = rb.linearVelocity;
+        if (inWater)
+        {
+            animator.SetBool("UnderWater", true);
+        }
+        else
+        {
+            animator.SetBool("UnderWater", false);
+        }
+
+            Vector3 vel = rb.linearVelocity;
         vel.x = currentForwardSpeed;
         vel.y = Mathf.Clamp(vel.y, -maxVerticalSpeed, maxVerticalSpeed);
         rb.linearVelocity = vel;
