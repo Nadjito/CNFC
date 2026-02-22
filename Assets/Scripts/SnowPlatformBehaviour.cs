@@ -6,6 +6,9 @@ public class SnowPlatformBehaviour : MonoBehaviour
     private GameObject player;
     private PenguinController playerController;
 
+    [Tooltip("Vertical buffer to determine if player is on top of snow platform")]
+    [SerializeField] private float yBuffer;
+
     [SerializeField] private float speedModifier;
 
     private AudioManager audioManager;
@@ -23,7 +26,7 @@ public class SnowPlatformBehaviour : MonoBehaviour
             player = obstacleCommon.GetComponent<ObstacleCommon>().player.gameObject;
             playerController = player.GetComponent<PenguinController>();
 
-            if (player.transform.position.y > transform.position.y)//player goes over the snow platform, reduce speed
+            if (player.transform.position.y + yBuffer > transform.position.y)//player goes over the snow platform, reduce speed
             {
                 //Debug.Log("Player is on top of the snow platform, reducing speed.");
                 audioManager.Play("snowHitSound");
