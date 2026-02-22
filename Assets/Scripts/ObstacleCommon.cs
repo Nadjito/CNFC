@@ -6,6 +6,15 @@ public class ObstacleCommon : MonoBehaviour
     [HideInInspector]public bool triggerAbility;
     public Transform player;
 
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        collider = gameObject.GetComponent<BoxCollider>();
+        triggerAbility = false;
+        player = null;
+    }
+
     void OnEnable()
     {
         if (collider != null)
@@ -15,22 +24,9 @@ public class ObstacleCommon : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnCollisionEnter (Collision collision)
     {
-        collider = gameObject.GetComponent<Collider>();
-        triggerAbility = false;
-        player = null;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
+        Debug.Log("Collision detected between " + collision.gameObject.name+" and "+gameObject.name);
         collider.enabled = false;
         player=collision.transform;
 

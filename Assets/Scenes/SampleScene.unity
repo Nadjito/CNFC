@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b106134f475d01b49a5b9297e2e6f3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
-  player: {fileID: 0}
+  player: {fileID: 71127401}
   spawnRate: 2
   Water: {fileID: 1667356063}
   spawnYoffset: 0
@@ -470,7 +470,6 @@ MonoBehaviour:
   ObstaclesList:
   - {fileID: 859631316960477184, guid: da00b044d91941e4eb88bd56a99c49cc, type: 3}
   - {fileID: 8187942614844830938, guid: f30a1bfeeee5bad4d8c0cf3ef72c9b06, type: 3}
-  - {fileID: 706451151734848328, guid: a934d24a14868b14497cbad5031f1a5a, type: 3}
   obstaclePoolDefaultCapacity: 10
   obstaclePoolMaxSize: 30
   obstacleLifetime: 10
