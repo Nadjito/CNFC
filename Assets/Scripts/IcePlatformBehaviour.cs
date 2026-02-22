@@ -8,10 +8,12 @@ public class IcePlatformBehaviour : MonoBehaviour
 
     [SerializeField] private float speedModifier;
 
+
     // Update is called once per frame
     void Start()
     {
         obstacleCommon = transform.GetComponent<ObstacleCommon>();
+
     }
 
     void Update()
@@ -23,13 +25,17 @@ public class IcePlatformBehaviour : MonoBehaviour
 
             if (player.transform.position.y < transform.position.y)//player goes under the ice platform, reduce speed
             {
+                Debug.Log("Player is under the ice platform, reducing speed.");
                 playerController.SetSpeed(playerController.GetSpeed() - speedModifier);
             }
             else//player goes on top of the ice platform, increase speed
             {
+                //Debug.Log("Player is on top of the ice platform, increasing speed.");
                 playerController.SetSpeed(playerController.GetSpeed() + speedModifier);
             }
             obstacleCommon.triggerAbility = false; // Reset the trigger after applying the effect
+
+
         }
     }
 }

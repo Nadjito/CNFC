@@ -22,6 +22,7 @@ public class SnowPlatformBehaviour : MonoBehaviour
 
             if (player.transform.position.y > transform.position.y)//player goes over the snow platform, reduce speed
             {
+                //Debug.Log("Player is on top of the snow platform, reducing speed.");
                 playerController.SetSpeed(playerController.GetSpeed() - speedModifier);
             }
             obstacleCommon.triggerAbility = false; // Reset the trigger after applying the effect

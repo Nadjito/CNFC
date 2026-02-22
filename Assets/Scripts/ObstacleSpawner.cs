@@ -122,7 +122,7 @@ public class ObstacleSpawner : MonoBehaviour
     IEnumerator DeactivateObstacle(GameObject obstacle)
     {
         yield return new WaitForSeconds(obstacleLifetime);
-        obstacle.GetComponent<ObstacleCommon>().triggerAbility = false; // Reset the trigger ability before returning to pool
+        //obstacle.GetComponent<ObstacleCommon>().triggerAbility = false; // Reset the trigger ability before returning to pool
         ReturnObstacleToPool(obstacle);
     }
 
