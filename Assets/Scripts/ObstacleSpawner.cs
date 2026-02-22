@@ -26,7 +26,7 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("Object Pooling Settings")]
     [SerializeField] private int obstaclePoolDefaultCapacity;
     [SerializeField] private int obstaclePoolMaxSize;
-    [SerializeField] private float obstacleLifetime; // Time after which the obstacle will be returned to the pool
+    [SerializeField] public float obstacleLifetime; // Time after which the obstacle will be returned to the pool
     private List<GameObject> obstaclePool = new List<GameObject>();
     private int uniqueObstacleIndex;
     Vector3 spawnlocalCoordinates;
@@ -50,9 +50,16 @@ public class ObstacleSpawner : MonoBehaviour
 
         if (time >= spawnRate)
         {
-            time = 0.0f;
-            SpawnRandomObstacle();
-
+            if(obstaclePool.Count >= obstaclePoolMaxSize)
+            {
+                Debug.LogWarning("No obstacles available in the pool to spawn. Consider increasing the pool size or reducing the spawn rate.");
+                return;
+            }
+            else
+            {
+                time = 0.0f;
+                SpawnRandomObstacle();
+            }
         }
     }
 
@@ -68,7 +75,16 @@ public class ObstacleSpawner : MonoBehaviour
         }
         else
         {
-            spawnlocalCoordinates.x += (float)previousObstacleX;
+            if(player.position.x-previousObstacleX>distanceBetweenObstacles)//if players is furher away from previous obtacle than obstacle spawn difference (going fast)
+                                                                            //spawn obstacle at distance from player, not from previous obstacle
+            {
+                spawnlocalCoordinates.x = player.position.x + spawnDistanceFromPlayer;
+            }
+            else
+            {
+                spawnlocalCoordinates.x = (float)previousObstacleX + distanceBetweenObstacles;
+
+            }
         }
 
         previousObstacleX = spawnlocalCoordinates.x;
@@ -78,7 +94,7 @@ public class ObstacleSpawner : MonoBehaviour
         spawnlocalCoordinates.y += obstacleToSpawn.GetComponent<Renderer>().bounds.size.y/2;//sets the spawn position to be on the water level, not half of the obstacle above it   
         
         obstacleToSpawn.transform.position = spawnlocalCoordinates;
-        StartCoroutine(DeactivateObstacle(obstacleToSpawn));
+        //StartCoroutine(DeactivateObstacle(obstacleToSpawn));
     }
 
     public GameObject GetObstacleFromPool()

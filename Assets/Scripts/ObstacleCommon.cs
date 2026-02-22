@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ObstacleCommon : MonoBehaviour
@@ -6,6 +7,7 @@ public class ObstacleCommon : MonoBehaviour
     [HideInInspector] public bool triggerAbility;
     [HideInInspector] public Transform player;
     private Animator animator;
+    private bool prepareToDeactivate;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,6 +17,16 @@ public class ObstacleCommon : MonoBehaviour
         triggerAbility = false;
         player = null;
         Checks();
+        prepareToDeactivate = false;
+    }
+
+    void Update()
+    {
+        if (prepareToDeactivate)
+        {
+                StartCoroutine(DeactivateThis());
+
+        }
     }
 
     void Checks()
@@ -52,12 +64,17 @@ public class ObstacleCommon : MonoBehaviour
 
             triggerAbility = true;
             //animator.SetBool("TriggerAbility", true);
+            prepareToDeactivate = true;
         }
         else
         {
             Debug.LogWarning("Obstacle collided with an object that is not the player. Please check the tags and colliders of the objects in the scene.");
         }
-        
+    }
 
+    IEnumerator DeactivateThis()
+    {
+               yield return new WaitForSeconds(transform.parent.GetComponent<ObstacleSpawner>().obstacleLifetime);
+        transform.parent.GetComponent<ObstacleSpawner>().ReturnObstacleToPool(gameObject);
     }
 }
