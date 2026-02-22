@@ -79,7 +79,7 @@ public class PenguinController : MonoBehaviour
             }
         }
 
-            isPressing = currentPress;
+        isPressing = currentPress;
         prevPress = currentPress;
     }
 
@@ -170,7 +170,6 @@ public class PenguinController : MonoBehaviour
                 float buoyancy = prof * buoyancyStrength;
                 float damping = rb.linearVelocity.y > 0f ? -rb.linearVelocity.y * buoyancyDamping : 0f;
                 rb.AddForce(Vector3.up * (buoyancy + damping), ForceMode.Acceleration);
-
             }
             else
             {
