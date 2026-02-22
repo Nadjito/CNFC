@@ -36,8 +36,11 @@ public class PenguinController : MonoBehaviour
     public Animator animator;
     public Animator reflexAnim;
 
+    private AudioManager audioManager;
+
     void Start()
     {
+        audioManager=FindAnyObjectByType<AudioManager>();
         rb = GetComponent<Rigidbody>();
         restY = transform.position.y;
         currentForwardSpeed = forwardSpeed;
@@ -90,6 +93,7 @@ public class PenguinController : MonoBehaviour
         if (rb.position.y < -0.15f && wasOnAir)
         {
             animator.SetTrigger("Trans");
+            audioManager.Play("divingSound");
             wasOnAir = false;
         }
         float prof = restY - rb.position.y;
@@ -111,6 +115,7 @@ public class PenguinController : MonoBehaviour
                 rb.AddForce(Vector3.up * impulse, ForceMode.Impulse);
                 currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostPerfect, forwardSpeed * 3f);
                 animator.SetTrigger("Parry");
+                audioManager.Play("parrySound");
                 Debug.Log("Parry");
                 hadPressed = false;
                 canJump = false;
