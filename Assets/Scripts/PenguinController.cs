@@ -98,6 +98,13 @@ public class PenguinController : MonoBehaviour
             audioManager.Play("divingSound");
             wasOnAir = false;
         }
+        
+        if (rb.position.y > 0.3f && !wasOnAir) 
+        {
+            animator.SetTrigger("Trans");
+            //audioManager.Play("jumpingSound");
+        }
+        
         float prof = restY - rb.position.y;
         bool inWater = prof >= -waterSurfaceTolerance;
         
@@ -193,7 +200,7 @@ public class PenguinController : MonoBehaviour
             reflex.enabled = true;
         }
 
-            Vector3 vel = rb.linearVelocity;
+        Vector3 vel = rb.linearVelocity;
         vel.x = currentForwardSpeed;
         vel.y = Mathf.Clamp(vel.y, -maxVerticalSpeed, maxVerticalSpeed);
         rb.linearVelocity = vel;
