@@ -8,10 +8,15 @@ public class IcePlatformBehaviour : MonoBehaviour
 
     [SerializeField] private float speedModifier;
 
+    private AudioManager audioManager;
+
+
     // Update is called once per frame
     void Start()
     {
         obstacleCommon = transform.GetComponent<ObstacleCommon>();
+        audioManager = transform.parent.GetComponent<ObstacleSpawner>().GameManager.GetComponent<AudioManager>();
+
     }
 
     void Update()
@@ -27,9 +32,12 @@ public class IcePlatformBehaviour : MonoBehaviour
             }
             else//player goes on top of the ice platform, increase speed
             {
+                audioManager.Play("iceSlideSound");
                 playerController.SetSpeed(playerController.GetSpeed() + speedModifier);
             }
             obstacleCommon.triggerAbility = false; // Reset the trigger after applying the effect
+
+
         }
     }
 }

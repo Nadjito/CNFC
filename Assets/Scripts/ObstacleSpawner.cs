@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    [SerializeField] public GameObject GameManager;//only here as a reference to game manager for obstacles.
     [SerializeField] public Transform player;
 
     [Header("Spawn Settings")]
@@ -122,7 +123,7 @@ public class ObstacleSpawner : MonoBehaviour
     IEnumerator DeactivateObstacle(GameObject obstacle)
     {
         yield return new WaitForSeconds(obstacleLifetime);
-        obstacle.GetComponent<ObstacleCommon>().triggerAbility = false; // Reset the trigger ability before returning to pool
+        //obstacle.GetComponent<ObstacleCommon>().triggerAbility = false; // Reset the trigger ability before returning to pool
         ReturnObstacleToPool(obstacle);
     }
 
