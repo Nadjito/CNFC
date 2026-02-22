@@ -5,6 +5,7 @@ using UnityEngine.Pool;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    [SerializeField] public GameObject GameManager;//only here as a reference to game manager for obstacles.
     [SerializeField] public Transform player;
 
     [Header("Spawn Settings")]

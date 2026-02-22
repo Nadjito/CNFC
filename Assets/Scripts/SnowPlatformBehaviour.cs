@@ -7,9 +7,12 @@ public class SnowPlatformBehaviour : MonoBehaviour
     private PenguinController playerController;
 
     [SerializeField] private float speedModifier;
+
+    private AudioManager audioManager;
     void Start()
     {
         obstacleCommon = transform.GetComponent<ObstacleCommon>();
+        audioManager = transform.parent.GetComponent<ObstacleSpawner>().GameManager.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -23,6 +26,7 @@ public class SnowPlatformBehaviour : MonoBehaviour
             if (player.transform.position.y > transform.position.y)//player goes over the snow platform, reduce speed
             {
                 //Debug.Log("Player is on top of the snow platform, reducing speed.");
+                audioManager.Play("snowHitSound");
                 playerController.SetSpeed(playerController.GetSpeed() - speedModifier);
             }
             obstacleCommon.triggerAbility = false; // Reset the trigger after applying the effect
