@@ -39,6 +39,8 @@ public class PenguinController : MonoBehaviour
 
     private AudioManager audioManager;
 
+    public bool inWater;
+
     void Start()
     {
         audioManager=FindAnyObjectByType<AudioManager>();
@@ -70,7 +72,7 @@ public class PenguinController : MonoBehaviour
         if (justPressed && !prevPress)
         {
             float prof = restY - transform.position.y;
-            bool inWater = prof >= -waterSurfaceTolerance;
+            inWater = prof >= -waterSurfaceTolerance;
             if (inWater)
             {
                 hadPressed = true;
