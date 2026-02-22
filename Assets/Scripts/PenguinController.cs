@@ -35,6 +35,7 @@ public class PenguinController : MonoBehaviour
     private bool wasOnAir;
     public Animator animator;
     public Animator animatorRef;
+    public SpriteRenderer reflex;
 
     private AudioManager audioManager;
 
@@ -48,7 +49,7 @@ public class PenguinController : MonoBehaviour
         pressStartTime = -999f;
         animator = GetComponentInChildren<Animator>();
         animatorRef = transform.Find("PengRelfex").GetComponent<Animator>();
-
+        reflex = transform.Find("PengRelfex").GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -183,10 +184,12 @@ public class PenguinController : MonoBehaviour
         if (inWater)
         {
             animator.SetBool("UnderWater", true);
+            reflex.enabled = false;
         }
         else
         {
             animator.SetBool("UnderWater", false);
+            reflex.enabled = true;
         }
 
             Vector3 vel = rb.linearVelocity;
