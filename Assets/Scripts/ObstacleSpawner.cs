@@ -13,6 +13,8 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private float spawnRate;
     [SerializeField] private Transform Water;
     [SerializeField] private float spawnYoffset;
+    [SerializeField] private float distanceBetweenObstacles;
+    private float? previousObstacleX;
     private float spawnPositionY;
     [Space(5)]
     [Header("Y will be changed to Water Level + YOffset.")]
@@ -27,14 +29,17 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private float obstacleLifetime; // Time after which the obstacle will be returned to the pool
     private List<GameObject> obstaclePool = new List<GameObject>();
     private int uniqueObstacleIndex;
+    Vector3 spawnlocalCoordinates;
 
 
     void Start()
     {
+        previousObstacleX = null;
         spawnPositionY = Water.position.y + spawnYoffset;
         Debug.Log("Obstacle Pool initialized with " + ObstaclesList.Count + " obstacles.");
         InitializeObstaclePool();
-        
+        spawnlocalCoordinates = player.position;
+
     }
 
 
@@ -57,8 +62,17 @@ public class ObstacleSpawner : MonoBehaviour
 
         GameObject obstacleToSpawn = GetObstacleFromPool();
 
-        Vector3 spawnlocalCoordinates = player.position;
-        spawnlocalCoordinates.x += spawnDistanceFromPlayer;
+        if (previousObstacleX == null)
+        {
+            spawnlocalCoordinates.x += spawnDistanceFromPlayer;
+        }
+        else
+        {
+            spawnlocalCoordinates.x += (float)previousObstacleX;
+        }
+
+        previousObstacleX = spawnlocalCoordinates.x;
+
 
         spawnlocalCoordinates.y = spawnPositionY;
         spawnlocalCoordinates.y += obstacleToSpawn.GetComponent<Renderer>().bounds.size.y/2;//sets the spawn position to be on the water level, not half of the obstacle above it   
