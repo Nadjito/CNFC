@@ -34,7 +34,7 @@ public class PenguinController : MonoBehaviour
     private bool perfectPress;
     private bool wasOnAir;
     public Animator animator;
-    public Animator reflexAnim;
+    public Animator animatorRef;
 
     private AudioManager audioManager;
 
@@ -47,9 +47,8 @@ public class PenguinController : MonoBehaviour
         rb.linearVelocity = new Vector3(currentForwardSpeed, 0f, 0f);
         pressStartTime = -999f;
         animator = GetComponentInChildren<Animator>();
-        reflexAnim = GetComponentInChildren<Animator>();
-        if (animator == null)
-            Debug.LogWarning("Animator component not found on PenguinController object.");
+        animatorRef = transform.Find("PengRelfex").GetComponent<Animator>();
+
     }
 
     void Update()
@@ -116,6 +115,7 @@ public class PenguinController : MonoBehaviour
                 currentForwardSpeed = Mathf.Min(currentForwardSpeed + speedBoostPerfect, forwardSpeed * 3f);
                 animator.SetTrigger("Parry");
                 audioManager.Play("parrySound");
+                animatorRef.SetTrigger("ParryRef");
                 Debug.Log("Parry");
                 hadPressed = false;
                 canJump = false;
