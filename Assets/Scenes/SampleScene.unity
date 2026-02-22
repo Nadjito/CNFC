@@ -836,7 +836,7 @@ MonoBehaviour:
   spawnRate: 2
   Water: {fileID: 0}
   spawnYoffset: 0
-  distanceBetweenObstacles: 5
+  distanceBetweenObstacles: 0
   spawnDistanceFromPlayer: 10
   ObstaclesList:
   - {fileID: 859631316960477184, guid: da00b044d91941e4eb88bd56a99c49cc, type: 3}
@@ -1884,11 +1884,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &1326811961 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7366942718639181393, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
-  m_PrefabInstance: {fileID: 1710254801}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1515118224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,13 +2263,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3174360645831057024, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
-      propertyPath: audioManager
-      value: 
-      objectReference: {fileID: 1515118228}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1326811961}
-    - target: {fileID: 3174360645831057024, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: reflexAnim
       value: 
       objectReference: {fileID: 140136868}
@@ -2282,6 +2270,18 @@ PrefabInstance:
       propertyPath: animatorRef
       value: 
       objectReference: {fileID: 140136868}
+    - target: {fileID: 3174360645831057024, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1515118228}
+    - target: {fileID: 3426221778002695740, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018212320520614359, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5628916507571081785, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2292,7 +2292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6361952209979847632, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: m_Constraints
-      value: 114
+      value: 122
       objectReference: {fileID: 0}
     - target: {fileID: 8928863395921275200, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: m_Name
@@ -2722,3 +2722,5 @@ SceneRoots:
   - {fileID: 1021189052}
   - {fileID: 1515118226}
   - {fileID: 4066974398492631044}
+  - {fileID: 1641609700}
+  - {fileID: 1667356063}

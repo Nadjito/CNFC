@@ -35,6 +35,7 @@ public class PenguinController : MonoBehaviour
     private bool wasOnAir;
     public Animator animator;
     public Animator animatorRef;
+    public SpriteRenderer pengRelfex;
 
     private AudioManager audioManager;
 
@@ -48,7 +49,11 @@ public class PenguinController : MonoBehaviour
         pressStartTime = -999f;
         animator = GetComponentInChildren<Animator>();
         animatorRef = transform.Find("PengRelfex").GetComponent<Animator>();
-
+        Transform penguinRef = transform.Find("PengRelfex");
+        if (penguinRef != null)
+        {
+            pengRelfex = penguinRef.GetComponent<SpriteRenderer>();
+        }
     }
 
     void Update()
@@ -78,7 +83,7 @@ public class PenguinController : MonoBehaviour
             }
         }
 
-            isPressing = currentPress;
+        isPressing = currentPress;
         prevPress = currentPress;
     }
 
@@ -169,7 +174,6 @@ public class PenguinController : MonoBehaviour
                 float buoyancy = prof * buoyancyStrength;
                 float damping = rb.linearVelocity.y > 0f ? -rb.linearVelocity.y * buoyancyDamping : 0f;
                 rb.AddForce(Vector3.up * (buoyancy + damping), ForceMode.Acceleration);
-
             }
             else
             {
@@ -183,10 +187,12 @@ public class PenguinController : MonoBehaviour
         if (inWater)
         {
             animator.SetBool("UnderWater", true);
+            pengRelfex.gameObject.SetActive(false);
         }
         else
         {
             animator.SetBool("UnderWater", false);
+            pengRelfex.gameObject.SetActive(true);
         }
 
             Vector3 vel = rb.linearVelocity;
