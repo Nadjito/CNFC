@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 1301496844}
   smooth: 4
-  offset: {x: 2.5, y: 0.5, z: 0}
+  offset: {x: 7, y: 0.5, z: 0}
   cameraRotation: {x: 30, y: 45}
 --- !u!1 &410087039
 GameObject:
@@ -414,7 +414,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 437021902}
-  - component: {fileID: 437021901}
   - component: {fileID: 437021903}
   m_Layer: 0
   m_Name: ObstacleManagerObject
@@ -423,18 +422,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &437021901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437021900}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee17f7a3281568d4b8d5f2eecf03191e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleManager
 --- !u!4 &437021902
 Transform:
   m_ObjectHideFlags: 0
@@ -470,7 +457,6 @@ MonoBehaviour:
   ObstaclesList:
   - {fileID: 859631316960477184, guid: da00b044d91941e4eb88bd56a99c49cc, type: 3}
   - {fileID: 8187942614844830938, guid: f30a1bfeeee5bad4d8c0cf3ef72c9b06, type: 3}
-  - {fileID: 706451151734848328, guid: a934d24a14868b14497cbad5031f1a5a, type: 3}
   obstaclePoolDefaultCapacity: 10
   obstaclePoolMaxSize: 30
   obstacleLifetime: 10
@@ -551,7 +537,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658116079}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
@@ -1401,6 +1387,10 @@ PrefabInstance:
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4525674538005728040, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4525674538005728040, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 0e61ea268297724499ac67d913433d38, type: 2}
@@ -1431,6 +1421,14 @@ PrefabInstance:
     - target: {fileID: 8928863395921275200, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
       propertyPath: m_Name
       value: Penguin wreflection
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928863395921275200, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928863395921275200, guid: db36cb96b4397b343ac5cc3a85875e0a, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1573,7 +1571,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

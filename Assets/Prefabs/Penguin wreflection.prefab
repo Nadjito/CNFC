@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 3174360645831057024}
   m_Layer: 0
   m_Name: Penguin wreflection
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,6 +247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PenguinController
   forwardSpeed: 6
+  speedBoostPerfect: 2
+  speedBoostDiveMax: 3
+  speedDecay: 0.5
   downForce: 14
   upForce: 10
   buoyancyStrength: 8
@@ -254,6 +257,11 @@ MonoBehaviour:
   maxVerticalSpeed: 8
   maxUp: 3
   maxDown: -3
+  minDiveForJump: 0.25
+  waterSurfaceTolerance: 0.05
+  perfectJumpMultiplier: 1.1
+  perfectJumpWindow: 0.1
+  currentForwardSpeed: 0
 --- !u!1001 &1358493552098119087
 PrefabInstance:
   m_ObjectHideFlags: 0

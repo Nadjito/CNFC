@@ -7,16 +7,16 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    //[SerializeField] private float snowDecelerate;
-
     public abstract class Obstacle
     {
         public abstract string Name { get; }
-        public abstract void affectPlayer(GameObject obstacle);
-
-        public Transform playerTrans = GameObject.FindWithTag("Player").transform;
-        public PenguinController playerController = GameObject.FindWithTag("Player").GetComponent<PenguinController>();
+        public abstract void affectPlayer(GameObject obstacle); 
         public abstract float speedModifier { get; }
+
+        public abstract GameObject playerGO { get; }
+
+        public abstract PenguinController playerController { get;}
+
     }
 
     public class SnowPlatform : Obstacle
@@ -24,11 +24,18 @@ public class ObstacleManager : MonoBehaviour
         public override string Name => "SnowPlatform";
         public override float speedModifier=> -30f;
 
+        public override GameObject playerGO => GameObject.FindWithTag("Player");
+
+        public override PenguinController playerController => playerGO.GetComponent<PenguinController>();
+
+
         public override void affectPlayer(GameObject obstacle)
         {
-            if(playerTrans.position.y > obstacle.transform.position.y)
+            //GameObject playerGO = GameObject.FindWithTag("Player");
+            //PenguinController playerController = playerGO.GetComponent<PenguinController>();
+            if (GameObject.FindWithTag("Player").transform.position.y > obstacle.transform.position.y)
             {
-                float newSpeed = playerController.GetComponent<PenguinController>().GetSpeed() + speedModifier;
+                float newSpeed = GameObject.FindWithTag("Player").GetComponent<PenguinController>().GetSpeed() + speedModifier;
                 playerController.GetComponent<PenguinController>().SetSpeed(newSpeed);
             }
            
@@ -40,16 +47,23 @@ public class ObstacleManager : MonoBehaviour
         public override string Name => "IcePlatform";
 
         public override float speedModifier => +5f;
+
+        public override GameObject playerGO => GameObject.FindWithTag("Player");
+
+        public override PenguinController playerController => playerGO.GetComponent<PenguinController>();
         public override void affectPlayer(GameObject obstacle)
         {
+            //GameObject playerGO = GameObject.FindWithTag("Player");
+            //PenguinController playerController = playerGO.GetComponent<PenguinController>();
             int speedModifier = (int)this.speedModifier;
-            if (playerTrans.position.y < obstacle.transform.position.y)
+            if (GameObject.FindWithTag("Player").transform.position.y
+                < obstacle.transform.position.y)
             {
                 speedModifier = speedModifier * -1;
             }
 
-            float newSpeed = playerController.GetComponent<PenguinController>().GetSpeed() + speedModifier;
-            playerController.GetComponent<PenguinController>().SetSpeed(newSpeed);
+            float newSpeed = GameObject.FindWithTag("Player").GetComponent<PenguinController>().GetSpeed() + speedModifier;
+            GameObject.FindWithTag("Player").GetComponent<PenguinController>().SetSpeed(newSpeed);
 
         }
     }
@@ -110,6 +124,6 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
-
+    
 }
 

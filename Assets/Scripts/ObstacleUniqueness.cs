@@ -4,11 +4,12 @@ using static ObstacleManager;
 
 public class ObstacleUniqueness : MonoBehaviour
 {
+
     //[SerializeField] private GameObject ObstacleManager;
 
     private ObstacleManager _ObstacleManager;
     private Obstacle collisionObstacle;
-    private Collider collider;
+    private new Collider collider;
 
     public enum ObstacleType
     {
@@ -33,7 +34,7 @@ public class ObstacleUniqueness : MonoBehaviour
         collider = gameObject.GetComponent<Collider>();
         _ObstacleManager = Object.FindAnyObjectByType<ObstacleManager>();
 
-        switch (obstacleType)
+        /*switch (obstacleType)
         {
             case ObstacleType.SnowPlatform:
                 collisionObstacle = new SnowPlatform();
@@ -43,7 +44,7 @@ public class ObstacleUniqueness : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     private void OnCollisionEnter(Collision collision)
