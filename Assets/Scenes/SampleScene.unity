@@ -833,17 +833,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
   GameManager: {fileID: 1515118224}
   player: {fileID: 71127401}
-  spawnRate: 2
-  Water: {fileID: 0}
+  spawnRate: 1
+  Water: {fileID: 609224693}
   spawnYoffset: 0
-  distanceBetweenObstacles: 5
+  distanceBetweenObstacles: 50
   spawnDistanceFromPlayer: 10
   ObstaclesList:
   - {fileID: 859631316960477184, guid: da00b044d91941e4eb88bd56a99c49cc, type: 3}
   - {fileID: 8187942614844830938, guid: f30a1bfeeee5bad4d8c0cf3ef72c9b06, type: 3}
-  obstaclePoolDefaultCapacity: 10
+  obstaclePoolDefaultCapacity: 20
   obstaclePoolMaxSize: 50
-  obstacleLifetime: 10
+  obstacleLifetime: 3
 --- !u!1 &494907105
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +919,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494907105}
   m_CullTransparentMesh: 1
+--- !u!4 &609224693 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7810039499330411203, guid: f49cb22907039e342acb78e37cafa46f, type: 3}
+  m_PrefabInstance: {fileID: 4066974398492631044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &647925620
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,7 +976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &655763753
 Transform:
   m_ObjectHideFlags: 0
@@ -1884,11 +1889,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &1326811961 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7366942718639181393, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
-  m_PrefabInstance: {fileID: 1710254801}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1515118224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,13 +2268,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3174360645831057024, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
-      propertyPath: audioManager
-      value: 
-      objectReference: {fileID: 1515118228}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1326811961}
-    - target: {fileID: 3174360645831057024, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: reflexAnim
       value: 
       objectReference: {fileID: 140136868}
@@ -2282,6 +2275,10 @@ PrefabInstance:
       propertyPath: animatorRef
       value: 
       objectReference: {fileID: 140136868}
+    - target: {fileID: 3174360645831057024, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1515118228}
     - target: {fileID: 5628916507571081785, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2722,3 +2719,5 @@ SceneRoots:
   - {fileID: 1021189052}
   - {fileID: 1515118226}
   - {fileID: 4066974398492631044}
+  - {fileID: 1641609700}
+  - {fileID: 1667356063}
