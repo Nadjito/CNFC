@@ -58,10 +58,10 @@ public class PenguinController : MonoBehaviour
         bool justPressed = Mouse.current != null
             ? Mouse.current.leftButton.wasPressedThisFrame
             : Input.GetMouseButtonDown(0);
-
+        
         if (justPressed)
             lastPressTime = Time.time;
-
+        
         perfectPress = (Time.time - lastPressTime) <= 0.4f;
 
         if (justPressed && !prevPress)
@@ -94,13 +94,13 @@ public class PenguinController : MonoBehaviour
         }
         float prof = restY - rb.position.y;
         bool inWater = prof >= -waterSurfaceTolerance;
-
+        
         if (currentForwardSpeed > forwardSpeed)
             currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
-
+        
         if (currentForwardSpeed < forwardSpeed)
             currentForwardSpeed = Mathf.Max(currentForwardSpeed - speedDecay * Time.fixedDeltaTime, forwardSpeed);
-
+        
         if (inWater && !wasInWater)
         {
 
@@ -130,14 +130,14 @@ public class PenguinController : MonoBehaviour
         if (isPressing)
         {
             rb.AddForce(Vector3.down * downForce, ForceMode.Acceleration);
-
+            
             float maxDepth = restY - maxDown;
             float depthRatio = maxDepth > 0f ? Mathf.Clamp01(prof / maxDepth) : 0f;
-            float targetSpeed = Mathf.Lerp(forwardSpeed, forwardSpeed * speedBoostDiveMax, depthRatio);
-
+            float targetSpeed = Mathf.Lerp(forwardSpeed, forwardSpeed * 3f, depthRatio);
+    
             if (targetSpeed > currentForwardSpeed)
                 currentForwardSpeed = targetSpeed;
-
+            
             if (rb.linearVelocity.y > 0f)
             {
                 hadPressed = false;
