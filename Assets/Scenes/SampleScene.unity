@@ -491,8 +491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
   GameManager: {fileID: 1515118224}
   player: {fileID: 71127401}
-  spawnRate: 1
-  Water: {fileID: 609224693}
+  spawnRate: 2
+  Water: {fileID: 7810039499330411203, guid: f49cb22907039e342acb78e37cafa46f, type: 3}
   spawnYoffset: 0
   distanceBetweenObstacles: 50
   spawnDistanceFromPlayer: 10
@@ -1028,7 +1028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &1667356061
 TerrainCollider:
   m_ObjectHideFlags: 0
