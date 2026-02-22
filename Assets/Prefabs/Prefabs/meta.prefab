@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5045410461518124902}
   - component: {fileID: 1670184966100732718}
   m_Layer: 0
-  m_Name: iceblock
+  m_Name: meta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e960d22e852f92d4db8a873374112546, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 203ccc06edf9c8749aac8099d20b2b3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,9 +101,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4193371537768557625}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3de89996167d2a742bfbb3ab63698518, type: 2}
+  m_Controller: {fileID: 9100000, guid: bfde0290f3801cd4a9b9718e78ffc3d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
