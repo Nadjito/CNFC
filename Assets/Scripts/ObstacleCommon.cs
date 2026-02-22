@@ -46,6 +46,7 @@ public class ObstacleCommon : MonoBehaviour
     {
         if (collider != null)   
             collider.enabled = true;
+        prepareToDeactivate = false;
 
     }
 
