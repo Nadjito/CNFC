@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 5627542197923326223}
   m_Layer: 0
   m_Name: PenguinPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -387,6 +387,7 @@ MonoBehaviour:
   currentForwardSpeed: 0
   animator: {fileID: 7366942718639181393}
   animatorRef: {fileID: 6094734323700845496}
+  reflex: {fileID: 0}
 --- !u!114 &235101483255386369
 MonoBehaviour:
   m_ObjectHideFlags: 0
