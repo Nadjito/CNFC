@@ -32,7 +32,9 @@ public class PenguinController : MonoBehaviour
     public float currentForwardSpeed;
     private float maxDepthReached;
     private bool perfectPress;
+    private bool wasOnAir;
     public Animator animator;
+    public Animator reflexAnim;
 
     void Start()
     {
@@ -41,7 +43,8 @@ public class PenguinController : MonoBehaviour
         currentForwardSpeed = forwardSpeed;
         rb.linearVelocity = new Vector3(currentForwardSpeed, 0f, 0f);
         pressStartTime = -999f;
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        reflexAnim = GetComponentInChildren<Animator>();
         if (animator == null)
             Debug.LogWarning("Animator component not found on PenguinController object.");
     }
@@ -69,6 +72,7 @@ public class PenguinController : MonoBehaviour
             {
                 hadPressed = true;
                 pressStartTime = Time.time;
+
             }
         }
 
@@ -78,6 +82,16 @@ public class PenguinController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rb.position.y  > 0f)
+        {
+            wasOnAir = true;
+
+        }
+        if (rb.position.y < -0.15f && wasOnAir)
+        {
+            animator.SetTrigger("Trans");
+            wasOnAir = false;
+        }
         float prof = restY - rb.position.y;
         bool inWater = prof >= -waterSurfaceTolerance;
 
@@ -89,6 +103,7 @@ public class PenguinController : MonoBehaviour
 
         if (inWater && !wasInWater)
         {
+
             bool perfectTiming = perfectPress || (hadPressed && pressStartTime > 0f && Time.time - pressStartTime <= perfectJumpWindow);
             if (perfectTiming)
             {
@@ -107,18 +122,18 @@ public class PenguinController : MonoBehaviour
 
         if (inWater)
             maxDepthReached = Mathf.Max(maxDepthReached, prof);
-        //animator.SetBool("JumpingIdle", false);
+            
 
         if (inWater && prof > minDiveForJump)
             canJump = true;
 
-        if (isPressing && inWater)
+        if (isPressing)
         {
             rb.AddForce(Vector3.down * downForce, ForceMode.Acceleration);
 
             float maxDepth = restY - maxDown;
             float depthRatio = maxDepth > 0f ? Mathf.Clamp01(prof / maxDepth) : 0f;
-            float targetSpeed = Mathf.Lerp(forwardSpeed, forwardSpeed + speedBoostDiveMax, depthRatio);
+            float targetSpeed = Mathf.Lerp(forwardSpeed, forwardSpeed * speedBoostDiveMax, depthRatio);
 
             if (targetSpeed > currentForwardSpeed)
                 currentForwardSpeed = targetSpeed;

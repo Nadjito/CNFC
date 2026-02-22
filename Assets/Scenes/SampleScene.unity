@@ -1153,11 +1153,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5771095902407887202, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8928863395921275200, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
       propertyPath: m_Name
       value: PenguinPlayer
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5627542197923326223, guid: 8b36dce450fa7ea428634055b5f46906, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
